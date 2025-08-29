@@ -1,3 +1,5 @@
+import { addHeatmapToggleButton } from "../utils/add-heat-map";
+
 ////////////////////////////////////////////////////////////////////////////
 // Create score differential element, add conditional colors to team scores
 ////////////////////////////////////////////////////////////////////////////
@@ -36,10 +38,10 @@ export function displayScoreDifference(users, scores) {
             let displayText = "";
             // Losing (negative difference):
             if (difference < 0) {
-                displayText = `test Losing by ${difference.toFixed(2)}`;
+                displayText = `Losing by ${difference.toFixed(2)}`;
             // Winning (positive difference):
             } else if (difference > 0) {
-                displayText = `test Winning by ${difference.toFixed(2)}`;
+                displayText = ` Winning by ${difference.toFixed(2)}`;
             // Tied:
             } else {
                 displayText = 'Tied';
@@ -74,6 +76,7 @@ export function displayScoreDifference(users, scores) {
             const matchupHeader = document.querySelector('.matchup-row');
             if (matchupHeader && matchupHeader.parentNode) {
                 matchupHeader.parentNode.insertBefore(differenceElement, matchupHeader.nextSibling);
+                addHeatmapToggleButton(differenceElement);
             }
 
             ////////////////////////////////////////////////////////////////////////////

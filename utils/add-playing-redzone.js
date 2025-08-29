@@ -34,13 +34,13 @@ export function colorStatus(allPlayers) {
 
     }
 
-    function loadStylesheet(href) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = chrome.runtime.getURL(href);
-        document.head.appendChild(link);
-    }
+    // function loadStylesheet(href) {
+    //     const link = document.createElement('link');
+    //     link.rel = 'stylesheet';
+    //     link.type = 'text/css';
+    //     link.href = chrome.runtime.getURL(href);
+    //     document.head.appendChild(link);
+    // }
 
     
     // Has not played yet:

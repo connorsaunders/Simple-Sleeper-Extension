@@ -1,5 +1,5 @@
 import { colorPlayers } from "../utils/add-heat-map";
-import { displayScoreDifference } from "../utils/score-difference";
+import { displayScoreDifference } from "../elems/score-difference";
 import { resizeScoreElement } from "../utils/resize-scores"; 
 import { colorStatus } from "../utils/add-playing-redzone";
 
