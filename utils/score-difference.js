@@ -36,10 +36,10 @@ export function displayScoreDifference(users, scores) {
             let displayText = "";
             // Losing (negative difference):
             if (difference < 0) {
-                displayText = `Losing by ${difference.toFixed(2)}`;
+                displayText = `test Losing by ${difference.toFixed(2)}`;
             // Winning (positive difference):
             } else if (difference > 0) {
-                displayText = `Winning by ${difference.toFixed(2)}`;
+                displayText = `test Winning by ${difference.toFixed(2)}`;
             // Tied:
             } else {
                 displayText = 'Tied';
