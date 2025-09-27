@@ -5,7 +5,7 @@ import { addHeatmapToggleButton } from "../utils/add-heat-map";
 ////////////////////////////////////////////////////////////////////////////
 
 export function displayScoreDifference(users, scores) {
-    console.log('displayScoreDifference function is running');
+    console.log('displayScoreDifference function is running test');
 
     let retryCount = 0;
     const maxRetries = 1;
@@ -76,7 +76,7 @@ export function displayScoreDifference(users, scores) {
             const matchupHeader = document.querySelector('.matchup-row');
             if (matchupHeader && matchupHeader.parentNode) {
                 matchupHeader.parentNode.insertBefore(differenceElement, matchupHeader.nextSibling);
-                addHeatmapToggleButton(differenceElement);
+               // addHeatmapToggleButton(differenceElement);
             }
 
             ////////////////////////////////////////////////////////////////////////////
