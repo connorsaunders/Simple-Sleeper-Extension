@@ -1,2 +1,1166 @@
-(()=>{"use strict";function e(e){document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game").forEach(e=>{e.style.backgroundColor="rgba(255, 255, 255, 0.04)",e.style.boxShadow="",e.classList.remove("player-item"),e.style.border=""}),document.querySelectorAll(".score-difference-added").forEach(e=>{e.textContent="0.00",e.style.color="white"});const t=e?e.querySelectorAll(".player-scoring .score"):[];let o=0;for(let e=0;e<t.length;e+=2){const n=parseFloat(t[e].textContent.trim())||0,r=parseFloat(t[e+1].textContent.trim())||0;o=Math.max(o,Math.abs(n-r))}for(let e=0;e<t.length;e+=2){const n=t[e],r=t[e+1],l="-"===n.textContent.trim(),c="-"===r.textContent.trim();let a=l?0:parseFloat(n.textContent),s=c?0:parseFloat(r.textContent);const i=n.closest(".matchup-player-item"),d=r.closest(".matchup-player-item");if(l&&c){const t=`difference-${e}`,o=`difference-${e+1}`,n=document.querySelector(`#${t}`),r=document.querySelector(`#${o}`);n&&(n.textContent="0.00",n.style.color="white"),r&&(r.textContent="0.00",r.style.color="white")}i.style.borderRadius=d.style.borderRadius="10px",i.style.boxShadow="",d.style.boxShadow="",i.style.border="",d.style.border="";const u=parseFloat((a-s).toFixed(2)),p=Math.abs(u)/o*.15+.05;a<s?(l||(i.style.backgroundColor=`rgba(255, 0, 0, ${p})`),c||(d.style.backgroundColor=`rgba(0, 128, 0, ${p})`)):a>s?(l||(i.style.backgroundColor=`rgba(0, 128, 0, ${p})`),c||(d.style.backgroundColor=`rgba(255, 0, 0, ${p})`)):(l||(i.style.backgroundColor=`rgba(255, 255, 0, ${p+.01})`),c||(d.style.backgroundColor=`rgba(255, 255, 0, ${p+.01})`));const y=`difference-${e}`,m=`difference-${e+1}`;let g=document.querySelector(`#${y}`);g||(g=document.createElement("div"),g.id=y,g.className="score-difference-added",g.style.fontSize="9px",g.style.textAlign="center",g.style.marginTop="3px",n.parentNode.insertBefore(g,n.nextSibling)),g.textContent=u>0?`+${u.toFixed(2)}`:u.toFixed(2),g.style.color=u>0?"rgb(4,204,188)":u<0?"rgb(251,44,107)":"white";let x=document.querySelector(`#${m}`);x||(x=document.createElement("div"),x.id=m,x.className="score-difference-added",x.style.fontSize="9px",x.style.textAlign="center",x.style.marginTop="3px",r.parentNode.insertBefore(x,r.nextSibling));let b=parseFloat((s-a).toFixed(2));x.textContent=b>0?`+${b.toFixed(2)}`:b.toFixed(2),x.style.color=b<0?"rgb(251,44,107)":b>0?"rgb(4,204,188)":"white"}}window.addEventListener("load",function(){const o=new MutationObserver(function(r){o.disconnect(),r.forEach(function(o){!function(){const o=document.querySelector(".player-section");if(o&&t!==o.innerHTML){const n=document.querySelectorAll(".matchup-row .user"),r=document.querySelectorAll(".matchup-row .user .score");!function(e){const t=e?e.querySelectorAll(".player-scoring .score"):[];for(let e=0;e<t.length;e+=2)t[e],t[e+1]}(o),e(o),function(e,t){console.log("displayScoreDifference function is running test");let o=0;!function n(){if(2===e.length&&2===t.length){const e="-"===t[0].textContent.trim(),o="-"===t[1].textContent.trim(),n=(e?0:parseFloat(t[0].textContent))-(o?0:parseFloat(t[1].textContent));let r="";r=n<0?`Losing by ${n.toFixed(2)}`:n>0?` Winning by ${n.toFixed(2)}`:"Tied";let l=document.querySelector("#scoreDifferenceDisplay");l||(l=document.createElement("div"),l.id="scoreDifferenceDisplay",document.body.appendChild(l)),l.textContent=r,l.style.padding="10px",l.style.textAlign="center",l.style.backgroundColor=n<0?"rgba(255, 0, 0, 0.15)":0===n?"rgba(64, 64, 64, 0.15)":"rgba(0, 128, 0, 0.15)",l.style.fontSize="16px",l.style.marginTop="0px",l.style.marginBottom="10px",l.style.borderRadius="8px",l.style.boxShadow="1px 1px 3px rgba(0, 0, 0, 0.3)";const c=document.querySelector(".matchup-row");c&&c.parentNode&&c.parentNode.insertBefore(l,c.nextSibling);const a=document.querySelectorAll(".matchup-owner-item");if(2===a.length){const e=a[0],t=a[1];e.style.boxShadow="1px 1px 3px rgba(0, 0, 0, 0.3)",t.style.boxShadow="1px 1px 3px rgba(0, 0, 0, 0.3)",n<0?(e.style.backgroundColor="rgba(255, 0, 0, 0.15)",t.style.backgroundColor="rgba(0, 128, 0, 0.15)"):n>0?(e.style.backgroundColor="rgba(0, 128, 0, 0.15)",t.style.backgroundColor="rgba(255, 0, 0, 0.15)"):(e.style.backgroundColor="rgba(64, 64, 64, 0.15)",t.style.backgroundColor="rgba(64, 64, 64, 0.15)")}}else o>=1?console.log("Max retries reached, giving up..."):(console.log("Could not find the scores, retrying..."),o++,setTimeout(n,1e3))}()}(n,r),document.querySelectorAll(".roster-score-and-projection-matchup .score").forEach(e=>{e.style.fontSize="18px",e.style.fontWeight="normal"}),t=o.innerHTML}const n=document.querySelector(".league-matchups");if(console.log("leaguePage:",n),n){console.log("On league page now");const e=[];document.querySelectorAll(".matchup-row").forEach(t=>{t.querySelectorAll(".user").forEach(t=>{const o=t.querySelector(".team-name"),n=t.querySelector(".roster-score-and-projection-matchup .projections"),r=n?n.textContent.trim():null,l=r?r.replace(/[^0-9.\-]/g,""):"",c=""===l||"-"===l?null:parseFloat(l);e.push({team:o?o.textContent.trim():null,projectionRaw:r,projection:c})})}),console.log("team projections:",e);const t=e.map(e=>e.projection).filter(e=>null!=e);t.sort((e,t)=>e-t);let o=null;if(t.length){const e=t.length;o=e%2?t[(e-1)/2]:(t[e/2-1]+t[e/2])/2}console.log("computed median:",o),function(e=document){let t=0;(function o(){try{const n=Array.from(e.querySelectorAll(".roster-score-and-projection-matchup .projections")),r=n.map(e=>e.textContent.trim()),l=n.map(e=>function(e){if(!e)return null;const t=e.replace(/[^0-9.\-]/g,"").trim();if(""===t||"-"===t)return null;const o=parseFloat(t);return Number.isFinite(o)?o:null}(e.textContent));console.log("projected-median: found projections (raw):",r),console.log("projected-median: parsed values:",l);const c=l.filter(e=>null!==e&&!Number.isNaN(e));c.sort((e,t)=>e-t);const a=document.querySelector("#projected-median-display");if(0===c.length)return t>=2?(a&&a.parentNode&&a.parentNode.removeChild(a),null):(t++,setTimeout(o,500),null);let s;const i=c.length;s=i%2==1?c[(i-1)/2]:(c[i/2-1]+c[i/2])/2,s.toFixed(2);let d=a;d||(d=document.createElement("div"),d.id="projected-median-display");const u=document.createElement("span");u.textContent="Weekly Projected League Median: ",u.style.fontWeight="600";const p=document.createElement("span");p.textContent=s.toFixed(2),d.innerHTML="",d.appendChild(u),d.appendChild(p),d.style.padding="10px",d.style.textAlign="left",d.style.backgroundColor="rgba(0,0,0,0.06)",d.style.fontSize="14px",d.style.marginTop="0px",d.style.marginBottom="10px",d.style.borderRadius="8px",d.style.boxShadow="1px 1px 3px rgba(0, 0, 0, 0.3)";const y=document.querySelector(".league-tab-container .row .title");if(y&&y.parentNode){const e=y.closest(".row");e&&e.parentNode?e.parentNode.insertBefore(d,e.nextSibling):y.parentNode&&y.parentNode.insertBefore(d,y.nextSibling)}else{const e=document.querySelector(".matchup-row");e&&e.parentNode?e.parentNode.insertBefore(d,e.nextSibling):a||document.body.appendChild(d)}return s}catch(e){return console.error("displayProjectedMedian error",e),null}})()}(document)}}()}),n()});function n(){o.observe(document.body,{childList:!0,characterData:!0,subtree:!0})}n()});let t=null})();
-//# sourceMappingURL=bundle.js.map
+// Generated by build.js - do not edit. Run `node build.js` to rebuild.
+(() => {
+"use strict";
+// utils/sleeper-dom.js
+const __mod2 = (() => {
+////////////////////////////////////////////////////////////////////////////
+// DOM lookups for Sleeper's new (/beta) league UI.
+//
+// The new UI is styled with Tailwind utility classes (e.g. "flex", "min-w-0"),
+// so instead of class names we anchor on things that carry meaning:
+//   - starter rows contain a position button: aria-label="QB slot", "RB slot", ...
+//   - each player's score sits directly above its "proj." label
+//   - the matchup score card contains the "Open Sleeperzone" button, with the
+//     two team scores on either side of it
+////////////////////////////////////////////////////////////////////////////
+
+function isMatchupPage() {
+    return /\/leagues\/\d+\/matchup/.test(location.pathname);
+}
+
+function getLeagueId() {
+    const m = location.pathname.match(/\/leagues\/(\d+)/);
+    return m ? m[1] : null;
+}
+
+// Returns a number, or null for "–" / "—" / "-" / empty (player hasn't played).
+function parseScore(text) {
+    if (!text) return null;
+    const cleaned = text.replace(/[^0-9.\-]/g, '');
+    if (cleaned === '' || cleaned === '-') return null;
+    const v = parseFloat(cleaned);
+    return Number.isFinite(v) ? v : null;
+}
+
+function findProjLabel(container) {
+    return Array.from(container.querySelectorAll('span'))
+        .find(s => s.textContent.trim() === 'proj.') || null;
+}
+
+// One side of a starter row -> { item, scoreEl, scoreColumn }
+function readPlayerSide(side) {
+    const item = side.firstElementChild;
+    const projLabel = findProjLabel(side);
+    if (!item || !projLabel) return null;
+    const projLine = projLabel.parentElement;          // "proj. 20.23"
+    // Big score above it. Skip our own "+/-" element, which the heatmap
+    // inserts between the score and the "proj." line.
+    let scoreEl = projLine.previousElementSibling;
+    while (scoreEl && scoreEl.classList.contains('score-difference-added')) {
+        scoreEl = scoreEl.previousElementSibling;
+    }
+    if (!scoreEl) return null;
+    return { item, scoreEl, projLine, scoreColumn: projLine.parentElement };
+}
+
+// The <section> whose heading is "Starters" (bench / IR are separate sections)
+function getStartersSection() {
+    return Array.from(document.querySelectorAll('section'))
+        .find(s => Array.from(s.querySelectorAll('h3'))
+            .some(h => h.textContent.trim() === 'Starters')) || null;
+}
+
+// Starter rows as [[left, right], ...]; bench and IR are excluded.
+// Rows are found via each player's "proj." label, which is present both for
+// editable weeks (with "QB slot" buttons) and locked/past weeks (without them).
+function getStarterPairs() {
+    const section = getStartersSection();
+    if (!section) return [];
+
+    const rows = [];
+    findAllProjLabels(section).forEach(label => {
+        const side = label.closest('.min-w-0.flex-1');
+        const row = side && side.parentElement;
+        if (row && !rows.includes(row)) rows.push(row);
+    });
+
+    const pairs = [];
+    rows.forEach(row => {
+        const sides = Array.from(row.children).filter(c => c.classList.contains('flex-1'));
+        if (sides.length !== 2) return;
+        const left = readPlayerSide(sides[0]);
+        const right = readPlayerSide(sides[1]);
+        if (left && right) pairs.push([left, right]);
+    });
+    return pairs;
+}
+
+function findAllProjLabels(container) {
+    return Array.from(container.querySelectorAll('span'))
+        .filter(s => s.textContent.trim() === 'proj.');
+}
+
+// The matchup score card and the two team score elements inside it.
+function getMatchupHeader() {
+    const sleeperzone = document.querySelector('button[aria-label="Open Sleeperzone"]');
+    if (!sleeperzone) return null;
+    const card = sleeperzone.closest('.rounded-3xl');
+    const myScoreEl = sleeperzone.previousElementSibling;
+    const oppScoreEl = sleeperzone.nextElementSibling;
+    if (!card || !myScoreEl || !oppScoreEl) return null;
+    return { card, myScoreEl, oppScoreEl };
+}
+
+return { isMatchupPage, getLeagueId, parseScore, getStarterPairs, getMatchupHeader };
+})();
+
+// utils/add-heat-map.js
+const __mod1 = (() => {
+const { getStarterPairs, parseScore } = __mod2;
+////////////////////////////////////////////////////////////////////////////
+// Add heatmap to players
+////////////////////////////////////////////////////////////////////////////
+
+const POSITIVE = 'rgb(4,204,188)';
+const NEGATIVE = 'rgb(251,44,107)';
+const NEUTRAL = 'white';
+
+function colorPlayers(pairs = getStarterPairs()) {
+    if (window.heatmapEnabled === false) return;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Declare max difference for any 2 starters (for conditional formatting)
+    ////////////////////////////////////////////////////////////////////////////
+    let maxDifference = 0;
+    pairs.forEach(([left, right]) => {
+        const s1 = parseScore(left.scoreEl.textContent) || 0;
+        const s2 = parseScore(right.scoreEl.textContent) || 0;
+        maxDifference = Math.max(maxDifference, Math.abs(s1 - s2));
+    });
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Iterate through players and add conditionally formatted colors + differences
+    ////////////////////////////////////////////////////////////////////////////
+    pairs.forEach(([left, right], i) => {
+        const raw1 = parseScore(left.scoreEl.textContent);
+        const raw2 = parseScore(right.scoreEl.textContent);
+        const isScore1Dash = raw1 === null;
+        const isScore2Dash = raw2 === null;
+        const score1 = raw1 || 0;
+        const score2 = raw2 || 0;
+
+        const playerItem1 = left.item;
+        const playerItem2 = right.item;
+
+        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
+        playerItem1.style.boxShadow = playerItem2.style.boxShadow = '';
+        playerItem1.style.border = playerItem2.style.border = '';
+        playerItem1.style.backgroundColor = playerItem2.style.backgroundColor = '';
+
+        const difference = parseFloat((score1 - score2).toFixed(2));
+        const intensity = maxDifference > 0
+            ? Math.abs(difference) / maxDifference * 0.15 + 0.05
+            : 0.05;
+
+        if (score1 < score2) {
+            if (!isScore1Dash) playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+            if (!isScore2Dash) playerItem2.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+        } else if (score1 > score2) {
+            if (!isScore1Dash) playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+            if (!isScore2Dash) playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+        } else {
+            if (!isScore1Dash) playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.01})`;
+            if (!isScore2Dash) playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.01})`;
+        }
+
+        setDifference(left, `difference-${i * 2}`, difference);
+        setDifference(right, `difference-${i * 2 + 1}`, -difference);
+    });
+}
+
+// Small "+4.20" / "-4.20" directly under a player's score (above "proj."),
+// matching where the classic UI showed it.
+function setDifference(player, id, diff) {
+    let el = document.getElementById(id);
+    if (!el || el.nextElementSibling !== player.projLine) {
+        if (el) el.remove();
+        el = document.createElement('div');
+        el.id = id;
+        el.className = 'score-difference-added';
+        el.style.fontSize = '9px';
+        el.style.lineHeight = '11px';
+        el.style.marginTop = '1px';
+        player.scoreColumn.insertBefore(el, player.projLine);
+    }
+    const value = parseFloat(diff.toFixed(2));
+    const text = value > 0 ? `+${value.toFixed(2)}` : value.toFixed(2);
+    if (el.textContent !== text) el.textContent = text;
+    el.style.color = value > 0 ? POSITIVE : (value < 0 ? NEGATIVE : NEUTRAL);
+}
+
+function addHeatmapToggleButton(differenceElement) {
+    let heatmapToggle = document.querySelector("#heatmapToggleButton");
+    if (!heatmapToggle) {
+        heatmapToggle = document.createElement("button");
+        heatmapToggle.id = "heatmapToggleButton";
+        heatmapToggle.textContent = "Toggle Heatmap";
+        heatmapToggle.style.display = "block";
+        heatmapToggle.style.margin = "10px auto";
+        heatmapToggle.style.padding = "10px 20px";
+        heatmapToggle.style.borderRadius = "8px";
+        heatmapToggle.style.fontSize = "16px";
+        heatmapToggle.style.cursor = "pointer";
+        heatmapToggle.style.background = "rgba(64, 64, 64, 0.65)";
+        heatmapToggle.style.color = "#fff";
+        heatmapToggle.style.boxShadow = "0 2px 8px rgba(0,0,0,0.10)";
+        heatmapToggle.style.fontWeight = "500";
+        heatmapToggle.style.textAlign = "center";
+        heatmapToggle.style.transition = "background 0.15s, box-shadow 0.15s";
+        heatmapToggle.style.width = differenceElement.offsetWidth
+            ? differenceElement.offsetWidth + "px"
+            : "220px";
+        heatmapToggle.style.border = "none";
+        heatmapToggle.style.outline = "none";
+        heatmapToggle.style.boxSizing = "border-box";
+        heatmapToggle.style.appearance = "none";
+        heatmapToggle.style.WebkitAppearance = "none";
+        differenceElement.parentNode.insertBefore(heatmapToggle, differenceElement.nextSibling);
+
+        new ResizeObserver(() => {
+            heatmapToggle.style.width = differenceElement.offsetWidth + "px";
+        }).observe(differenceElement);
+
+        heatmapToggle.addEventListener("mousedown", () => {
+            heatmapToggle.style.background = "rgba(64, 64, 64, 0.85)";
+            heatmapToggle.style.boxShadow = "0 1px 3px rgba(0,0,0,0.13)";
+        });
+        heatmapToggle.addEventListener("mouseup", () => {
+            heatmapToggle.style.background = "rgba(64, 64, 64, 0.65)";
+            heatmapToggle.style.boxShadow = "0 2px 8px rgba(0,0,0,0.10)";
+        });
+        heatmapToggle.addEventListener("mouseleave", () => {
+            heatmapToggle.style.background = "rgba(64, 64, 64, 0.65)";
+            heatmapToggle.style.boxShadow = "0 2px 8px rgba(0,0,0,0.10)";
+        });
+
+        heatmapToggle.addEventListener("click", function () {
+            window.heatmapEnabled = !window.heatmapEnabled;
+            if (!window.heatmapEnabled) {
+                resetHeatmapColors();
+            } else {
+                colorPlayers();
+            }
+            heatmapToggle.textContent = window.heatmapEnabled ? "Turn Heatmap Off" : "Turn Heatmap On";
+        });
+    }
+    if (typeof window.heatmapEnabled === "undefined") {
+        window.heatmapEnabled = true;
+        heatmapToggle.textContent = "Turn Heatmap Off";
+    }
+}
+
+// Helper to reset all player coloring and differences
+function resetHeatmapColors() {
+    getStarterPairs().forEach(pair => pair.forEach(p => {
+        p.item.style.backgroundColor = '';
+        p.item.style.boxShadow = '';
+        p.item.style.border = '';
+    }));
+    document.querySelectorAll('.score-difference-added').forEach(el => el.remove());
+}
+
+return { colorPlayers, addHeatmapToggleButton, resetHeatmapColors };
+})();
+
+// utils/text-styles.js
+const __mod4 = (() => {
+////////////////////////////////////////////////////////////////////////////
+// Shared text styles for the boxes the extension adds to the new UI.
+// Mirrors Sleeper's own "48% win" pairing: words in Google Sans Flex
+// (medium), numbers in the wide, heavy face used for the matchup scores.
+////////////////////////////////////////////////////////////////////////////
+
+const LABEL_STYLE = {
+    fontFamily: '"Google Sans Flex", Inter, sans-serif',
+    fontWeight: '500',
+    fontVariationSettings: 'normal',
+    letterSpacing: '-0.25px'
+};
+
+const NUMBER_STYLE = {
+    fontFamily: '"Google Sans Flex Wide", "Google Sans Flex", Inter, sans-serif',
+    fontWeight: '900',
+    fontVariationSettings: '"wdth" 140',
+    letterSpacing: '-0.3px'
+};
+
+// Render [{ text, number }] as spans inside `el`, only touching the DOM when
+// the text changes. numberStyle: style for number parts (null = inherit).
+function setParts(el, parts, numberStyle = NUMBER_STYLE) {
+    const key = parts.map(p => `${p.number ? '#' : ''}${p.text}`).join('|');
+    if (el.dataset.parts === key) return;
+    el.dataset.parts = key;
+    el.textContent = '';
+    parts.forEach(p => {
+        const span = document.createElement('span');
+        span.textContent = p.text;
+        if (p.number && numberStyle) Object.assign(span.style, numberStyle);
+        el.appendChild(span);
+    });
+}
+
+return { LABEL_STYLE, NUMBER_STYLE, setParts };
+})();
+
+// elems/score-difference.js
+const __mod3 = (() => {
+const { getMatchupHeader, parseScore } = __mod2;
+const { LABEL_STYLE, setParts } = __mod4;
+////////////////////////////////////////////////////////////////////////////
+// Create score differential element, add conditional colors to team blocks
+////////////////////////////////////////////////////////////////////////////
+
+const LOSING_BG = 'rgba(255, 0, 0, 0.15)';
+const WINNING_BG = 'rgba(0, 128, 0, 0.15)';
+const TIED_BG = 'rgba(64, 64, 64, 0.15)';
+
+function displayScoreDifference(header = getMatchupHeader()) {
+    if (!header) return null;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Capture my score and opponent's ("—" before kickoff counts as 0)
+    ////////////////////////////////////////////////////////////////////////////
+    const myScore = parseScore(header.myScoreEl.textContent) || 0;
+    const opponentScore = parseScore(header.oppScoreEl.textContent) || 0;
+    const difference = myScore - opponentScore;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Create element display text
+    ////////////////////////////////////////////////////////////////////////////
+    // Words in the label font, numbers in the score font
+    let parts;
+    if (difference < 0) parts = [{ text: 'Losing by ' }, { text: difference.toFixed(2), number: true }];
+    else if (difference > 0) parts = [{ text: 'Winning by ' }, { text: difference.toFixed(2), number: true }];
+    else parts = [{ text: 'Tied' }];
+
+    const bg = difference < 0 ? LOSING_BG : (difference === 0 ? TIED_BG : WINNING_BG);
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Create or update element scoreDifferenceDisplay
+    ////////////////////////////////////////////////////////////////////////////
+    let differenceElement = document.querySelector("#scoreDifferenceDisplay");
+    if (!differenceElement) {
+        differenceElement = document.createElement("div");
+        differenceElement.id = "scoreDifferenceDisplay";
+        differenceElement.style.padding = '10px';
+        differenceElement.style.textAlign = 'center';
+        Object.assign(differenceElement.style, LABEL_STYLE);
+        differenceElement.style.fontSize = '16px';
+        differenceElement.style.lineHeight = '22px';
+        differenceElement.style.marginTop = '10px';
+        differenceElement.style.marginBottom = '0px';
+        differenceElement.style.borderRadius = '8px';
+        differenceElement.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
+        differenceElement.style.color = 'var(--color-dls-text, inherit)';
+    }
+    setParts(differenceElement, parts);
+    differenceElement.style.backgroundColor = bg;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Insert element directly under the matchup score card
+    ////////////////////////////////////////////////////////////////////////////
+    const { card } = header;
+    if (card.nextElementSibling !== differenceElement) {
+        card.parentNode.insertBefore(differenceElement, card.nextSibling);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Conditional color of each team's half of the score card.
+    // (Classic had two separate owner cards; the new UI has one shared card,
+    // so tint its left half for my team and its right half for the opponent.)
+    // Each half fades in its own color: strongest at the outer edge, easing
+    // lighter toward the center line.
+    ////////////////////////////////////////////////////////////////////////////
+    const RED = '255, 0, 0';
+    const GREEN = '0, 128, 0';
+    const GRAY = '64, 64, 64';
+    let mine = GRAY;
+    let theirs = GRAY;
+    if (difference < 0) {
+        mine = RED;
+        theirs = GREEN;
+    } else if (difference > 0) {
+        mine = GREEN;
+        theirs = RED;
+    }
+    const EDGE = 0.24;   // alpha at the card's outer edges
+    const CENTER = 0.08; // alpha where the two halves meet
+    card.style.backgroundImage = `linear-gradient(90deg,
+        rgba(${mine}, ${EDGE}) 0%, rgba(${mine}, ${CENTER}) 50%,
+        rgba(${theirs}, ${CENTER}) 50%, rgba(${theirs}, ${EDGE}) 100%)`;
+
+    // Sleeper decorates the card with two blurred corner glows (aqua left,
+    // red right) that wash out the tint toward the edges. Hide them so each
+    // half stays in its own color.
+    card.querySelectorAll(':scope > span[aria-hidden="true"][class*="blur"]').forEach(glow => {
+        if (glow.style.display !== 'none') glow.style.display = 'none';
+    });
+
+    return differenceElement;
+}
+
+return { displayScoreDifference };
+})();
+
+// elems/league-median.js
+const __mod5 = (() => {
+const { getLeagueId } = __mod2;
+const { NUMBER_STYLE, setParts } = __mod4;
+////////////////////////////////////////////////////////////////////////////
+// League median box on the Matchup tab, shown right under the
+// "Winning/Losing by" box. Works in both the new (/beta) UI and Classic.
+//
+//   Current League Median:   Sleeper's own "League Median: X" element
+//   Projected League Median: median of every team's "proj." total
+//
+// Where the numbers come from:
+//   1. The new UI's League tab (/beta/leagues/{id}/leagues?week=N), fetched
+//      in the background: its "League Median" element, and the "proj." value
+//      shown for each team in the week's matchups.
+//   2. Fallback when that page isn't available (e.g. the account is set to
+//      Classic, which redirects /beta pages): compute both from Sleeper's
+//      public API. Current = median of actual points (or of projections
+//      before kickoff, as Sleeper does); projected = median of each roster's
+//      starters' projections scored with the league's scoring_settings.
+//      Verified to match the League tab (Wk 11: 103.10 / 122.73,
+//      Wk 12: 124.14 / 124.14).
+////////////////////////////////////////////////////////////////////////////
+
+const API = 'https://api.sleeper.app';
+const CURRENT_WEEK_TTL_MS = 60 * 1000; // refresh the live week once a minute
+
+const cache = new Map();   // `${leagueId}:${week}` -> { at, value, source }
+const inFlight = new Map();
+let nflStatePromise = null;
+const leaguePromises = new Map();
+const projectionPromises = new Map(); // `${season}:${week}` -> Promise<Map>
+
+async function getJson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${res.status} ${url}`);
+    return res.json();
+}
+
+function getNflState() {
+    if (!nflStatePromise) {
+        nflStatePromise = getJson(`${API}/v1/state/nfl`).catch(err => {
+            nflStatePromise = null;
+            throw err;
+        });
+    }
+    return nflStatePromise;
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Source 1: Sleeper's own League Median element (new UI League tab)
+////////////////////////////////////////////////////////////////////////////
+async function fetchLeagueTabMedians(leagueId, week) {
+    const res = await fetch(`/beta/leagues/${leagueId}/leagues?week=${week}`, { credentials: 'include' });
+    if (!res.ok || res.redirected) return null; // Classic accounts get redirected
+    const html = await res.text();
+
+    // Current: server-rendered as "League Median: <!-- -->103.10"
+    const m = html.match(/League Median:\s*(?:<!--\s*-->)?\s*(-?[0-9]+(?:\.[0-9]+)?)/);
+    if (!m) return null;
+    const current = parseFloat(m[1]);
+
+    // Projected: every team's "proj." total in this week's matchups
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const projections = Array.from(doc.querySelectorAll('span'))
+        .filter(s => s.textContent.trim() === 'proj.')
+        .map(label => [label.nextElementSibling, label.previousElementSibling]
+            .find(el => el && /^-?\d+(\.\d+)?$/.test(el.textContent.trim())))
+        .filter(Boolean)
+        .map(el => parseFloat(el.textContent));
+
+    return { current, projected: median(projections) };
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Source 2 (fallback): compute from the public API
+////////////////////////////////////////////////////////////////////////////
+function getLeague(leagueId) {
+    if (!leaguePromises.has(leagueId)) {
+        leaguePromises.set(leagueId, getJson(`${API}/v1/league/${leagueId}`).catch(err => {
+            leaguePromises.delete(leagueId);
+            throw err;
+        }));
+    }
+    return leaguePromises.get(leagueId);
+}
+
+// player_id -> projected stats for one NFL week
+function getProjections(season, week) {
+    const key = `${season}:${week}`;
+    if (!projectionPromises.has(key)) {
+        projectionPromises.set(key,
+            getJson(`${API}/projections/nfl/${season}/${week}?season_type=regular`)
+                .then(list => {
+                    const byPlayer = new Map();
+                    list.forEach(p => { if (p && p.player_id) byPlayer.set(String(p.player_id), p.stats || {}); });
+                    return byPlayer;
+                })
+                .catch(err => {
+                    projectionPromises.delete(key);
+                    throw err;
+                }));
+    }
+    return projectionPromises.get(key);
+}
+
+function scoreStats(stats, scoring) {
+    if (!stats) return 0;
+    let total = 0;
+    for (const [stat, value] of Object.entries(stats)) {
+        const weight = scoring[stat];
+        if (typeof weight === 'number' && typeof value === 'number') total += weight * value;
+    }
+    return total;
+}
+
+function median(values) {
+    if (!values.length) return null;
+    const v = [...values].sort((a, b) => a - b);
+    const n = v.length;
+    return n % 2 ? v[(n - 1) / 2] : (v[n / 2 - 1] + v[n / 2]) / 2;
+}
+
+async function computeMedians(leagueId, week) {
+    const league = await getLeague(leagueId);
+    const [matchups, projections] = await Promise.all([
+        getJson(`${API}/v1/league/${leagueId}/matchups/${week}`),
+        getProjections(league.season, week)
+    ]);
+    const scoring = league.scoring_settings || {};
+
+    const projectedTotals = matchups
+        .map(m => (m.starters || []).reduce((sum, pid) => sum + scoreStats(projections.get(String(pid)), scoring), 0))
+        .filter(p => p > 0);
+    const projected = median(projectedTotals);
+
+    // Like Sleeper's element: actual median once games are played,
+    // projected median before kickoff
+    const actualPoints = matchups.map(m => Number(m.points) || 0);
+    const current = actualPoints.some(p => p > 0) ? median(actualPoints) : projected;
+
+    return { current, projected };
+}
+
+async function loadMedians(leagueId, week) {
+    try {
+        const fromLeagueTab = await fetchLeagueTabMedians(leagueId, week);
+        if (fromLeagueTab) return { ...fromLeagueTab, source: 'league-tab' };
+    } catch (err) {
+        console.warn('[Sleeper extension] League tab unavailable, computing medians instead', err);
+    }
+    return { ...(await computeMedians(leagueId, week)), source: 'computed' };
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Which week is on screen
+////////////////////////////////////////////////////////////////////////////
+function weekFromPage() {
+    // New UI: ?week=N in the URL
+    const fromUrl = parseInt(new URLSearchParams(location.search).get('week'), 10);
+    if (Number.isFinite(fromUrl)) return fromUrl;
+    // Classic: the selected week reads "Wk. 11". (Don't match "Week N": Classic's
+    // hidden dropdown options are "Week 1".."Week 17". The new UI has no ?week=
+    // only when showing the current week, which the caller falls back to.)
+    const leaf = Array.from(document.querySelectorAll('span, div, p, button'))
+        .find(el => el.children.length === 0 && /^Wk\.?\s*\d+$/.test(el.textContent.trim()));
+    if (leaf) return parseInt(leaf.textContent.replace(/\D+/g, ''), 10);
+    return null;
+}
+
+async function getViewedWeek() {
+    const state = await getNflState();
+    const current = Number(state.display_week || state.week);
+    const week = weekFromPage();
+    return { week: Number.isFinite(week) ? week : current, current };
+}
+
+function requestMedians(leagueId, week, current, onReady) {
+    const key = `${leagueId}:${week}`;
+    const cached = cache.get(key);
+    const ttl = week >= current ? CURRENT_WEEK_TTL_MS : Infinity;
+    if (cached && Date.now() - cached.at < ttl) return cached;
+    if (!inFlight.has(key)) {
+        inFlight.set(key, loadMedians(leagueId, week)
+            .then(result => {
+                cache.set(key, { at: Date.now(), ...result });
+                onReady();
+            })
+            .catch(err => console.error('[Sleeper extension] league median', err))
+            .finally(() => inFlight.delete(key)));
+    }
+    return cached || null; // show the previous value while refreshing
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Render
+////////////////////////////////////////////////////////////////////////////
+const NEUTRAL_BG = 'rgba(64, 64, 64, 0.15)';
+
+// Same look as the "Winning/Losing by" box it sits under (new UI or Classic)
+function getOrCreateBox(anchor) {
+    let box = document.querySelector('#leagueMedianDisplay');
+    if (!box) {
+        box = document.createElement('div');
+        box.id = 'leagueMedianDisplay';
+    }
+    box.style.cssText = anchor.style.cssText;
+    box.style.backgroundColor = NEUTRAL_BG;
+    box.style.backgroundImage = 'none';
+    if (anchor.nextElementSibling !== box) {
+        anchor.parentNode.insertBefore(box, anchor.nextSibling);
+    }
+    return box;
+}
+
+const fmt = v => (v === null || v === undefined || Number.isNaN(v)) ? '…' : v.toFixed(2);
+
+// Two lines in one box: label words + number. The new UI gets the
+// label/number font pairing; Classic keeps its plain box styling.
+function setLines(box, lines) {
+    const numberStyle = document.querySelector('.player-section') ? null : NUMBER_STYLE;
+    while (box.children.length > lines.length) box.lastElementChild.remove();
+    lines.forEach(([label, value], i) => {
+        let line = box.children[i];
+        if (!line) {
+            line = document.createElement('div');
+            box.appendChild(line);
+        }
+        setParts(line, [{ text: `${label} ` }, { text: value, number: true }], numberStyle);
+    });
+}
+
+// anchor: the "Winning/Losing by" element (#scoreDifferenceDisplay)
+function displayLeagueMedian(anchor = document.querySelector('#scoreDifferenceDisplay')) {
+    const leagueId = getLeagueId();
+    if (!anchor || !anchor.parentNode || !leagueId) return null;
+
+    const box = getOrCreateBox(anchor);
+    const rerender = () => displayLeagueMedian();
+
+    getViewedWeek().then(({ week, current }) => {
+        const result = requestMedians(leagueId, week, current, rerender) || {};
+        setLines(box, [
+            ['Current League Median:', fmt(result.current)],
+            ['Projected League Median:', fmt(result.projected)]
+        ]);
+        box.dataset.week = String(week);
+        if (result.source) box.dataset.source = result.source;
+    }).catch(err => console.error('[Sleeper extension] league median', err));
+
+    return box;
+}
+
+return { displayLeagueMedian };
+})();
+
+// classic/add-heat-map.js
+const __mod6 = (() => {
+////////////////////////////////////////////////////////////////////////////
+// Add heatmap to players 
+////////////////////////////////////////////////////////////////////////////
+
+function colorPlayers(allPlayers) {
+    ////////////////////////////////////////////////////////////////////////////
+    // Reset in-game color scheme and individual player score differences
+    ////////////////////////////////////////////////////////////////////////////
+    resetInGameItemColors();
+    resetScoreDifference();
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // Grab all players scores:
+    ////////////////////////////////////////////////////////////////////////////
+    const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // Declare max difference for any 2 starters
+    ////////////////////////////////////////////////////////////////////////////
+    let maxDifference = 0;
+
+    // Calculate the max difference between any 2 players of the same position (for conditional formatting)
+    for (let i = 0; i < allPlayersScores.length; i += 2) {
+        const score1 = parseFloat(allPlayersScores[i].textContent.trim()) || 0;
+        const score2 = parseFloat(allPlayersScores[i + 1].textContent.trim()) || 0;
+        maxDifference = Math.max(maxDifference, Math.abs(score1 - score2));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Iterate through players and add conditionally formatted colors + differences
+    ////////////////////////////////////////////////////////////////////////////
+    for (let i = 0; i < allPlayersScores.length; i += 2) {
+        const score1Element = allPlayersScores[i];
+        const score2Element = allPlayersScores[i + 1];
+
+        const isScore1Dash = score1Element.textContent.trim() === "-";
+        const isScore2Dash = score2Element.textContent.trim() === "-";
+
+        let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
+        let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
+
+        const playerItem1 = score1Element.closest('.matchup-player-item');
+        const playerItem2 = score2Element.closest('.matchup-player-item');
+
+        // Reset colors if both scores are dashes
+        if (isScore1Dash && isScore2Dash) {
+            const uniqueId1 = `difference-${i}`;
+            const uniqueId2 = `difference-${i + 1}`;
+
+            const differenceElement1 = document.querySelector(`#${uniqueId1}`);
+            const differenceElement2 = document.querySelector(`#${uniqueId2}`);
+
+            if (differenceElement1) {
+                differenceElement1.textContent = "0.00";
+                differenceElement1.style.color = 'white';
+            }
+            if (differenceElement2) {
+                differenceElement2.textContent = "0.00";
+                differenceElement2.style.color = 'white';
+            }
+        }
+
+        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
+
+        // Remove the shadow
+        playerItem1.style.boxShadow = '';
+        playerItem2.style.boxShadow = '';
+
+        // --- REMOVED: Position-based outline ---
+        playerItem1.style.border = '';
+        playerItem2.style.border = '';
+
+        const difference = parseFloat((score1 - score2).toFixed(2));
+        const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
+
+        if (score1 < score2) {
+            if (!isScore1Dash) {
+                playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+            }
+            if (!isScore2Dash) {
+                playerItem2.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+            }
+        } else if (score1 > score2) {
+            if (!isScore1Dash) {
+                playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+            }
+            if (!isScore2Dash) {
+                playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+            }
+        } else {
+            if (!isScore1Dash) {
+                playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.01})`;
+            }
+            if (!isScore2Dash) {
+                playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.01})`;
+            }
+        }
+
+        const uniqueId1 = `difference-${i}`;
+        const uniqueId2 = `difference-${i + 1}`;
+
+        let differenceElement1 = document.querySelector(`#${uniqueId1}`);
+        if (!differenceElement1) {
+            differenceElement1 = document.createElement('div');
+            differenceElement1.id = uniqueId1;
+            differenceElement1.className = 'score-difference-added';
+            differenceElement1.style.fontSize = '9px';
+            differenceElement1.style.textAlign = 'center';
+            differenceElement1.style.marginTop = '3px';
+            score1Element.parentNode.insertBefore(differenceElement1, score1Element.nextSibling);
+        }
+        differenceElement1.textContent = difference > 0 ? `+${difference.toFixed(2)}` : difference.toFixed(2);
+        differenceElement1.style.color = difference > 0 ? 'rgb(4,204,188)' : (difference < 0 ? 'rgb(251,44,107)' : 'white');
+
+        let differenceElement2 = document.querySelector(`#${uniqueId2}`);
+        if (!differenceElement2) {
+            differenceElement2 = document.createElement('div');
+            differenceElement2.id = uniqueId2;
+            differenceElement2.className = 'score-difference-added';
+            differenceElement2.style.fontSize = '9px';
+            differenceElement2.style.textAlign = 'center';
+            differenceElement2.style.marginTop = '3px';
+            score2Element.parentNode.insertBefore(differenceElement2, score2Element.nextSibling);
+        }
+        let differenceScore2 = parseFloat((score2 - score1).toFixed(2));
+        differenceElement2.textContent = differenceScore2 > 0 ? `+${differenceScore2.toFixed(2)}` : differenceScore2.toFixed(2);
+        differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : (differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white');
+    }
+}
+
+function resetInGameItemColors() {
+    const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
+    inGameItems.forEach(item => {
+        // Reset styles of the main element
+        item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+        item.style.boxShadow = ''; // Reset box-shadow if needed
+        item.classList.remove('player-item'); // Remove the class if it's no longer needed
+        item.style.border = ''; // Also reset border
+    });
+}
+
+function resetScoreDifference() {
+    // Reset difference elements
+    const differenceElements = document.querySelectorAll('.score-difference-added');
+    differenceElements.forEach(diffElem => {
+        diffElem.textContent = '0.00';
+        diffElem.style.color = 'white';
+    });
+}
+
+function addHeatmapToggleButton(differenceElement) {
+    let heatmapToggle = document.querySelector("#heatmapToggleButton");
+    if (!heatmapToggle) {
+        heatmapToggle = document.createElement("button");
+        heatmapToggle.id = "heatmapToggleButton";
+        heatmapToggle.textContent = "Toggle Heatmap";
+        // Style: semi-transparent gray, white text, same width, NO border, light shadow
+        heatmapToggle.style.display = "block";
+        heatmapToggle.style.margin = "10px auto";
+        heatmapToggle.style.padding = "10px 20px";
+        heatmapToggle.style.borderRadius = "8px";
+        heatmapToggle.style.fontSize = "16px";
+        heatmapToggle.style.cursor = "pointer";
+        heatmapToggle.style.background = "rgba(64, 64, 64, 0.65)";
+        heatmapToggle.style.color = "#fff";
+        heatmapToggle.style.boxShadow = "0 2px 8px rgba(0,0,0,0.10)";
+        heatmapToggle.style.fontWeight = "500";
+        heatmapToggle.style.textAlign = "center";
+        heatmapToggle.style.transition = "background 0.15s, box-shadow 0.15s";
+        heatmapToggle.style.width = differenceElement.offsetWidth
+            ? differenceElement.offsetWidth + "px"
+            : "220px";
+        heatmapToggle.style.border = "none";
+        heatmapToggle.style.outline = "none";
+        heatmapToggle.style.boxSizing = "border-box";
+        heatmapToggle.style.appearance = "none";
+        heatmapToggle.style.WebkitAppearance = "none";
+        differenceElement.parentNode.insertBefore(heatmapToggle, differenceElement.nextSibling);
+
+        // Keep button width in sync with differenceElement
+        new ResizeObserver(() => {
+            heatmapToggle.style.width = differenceElement.offsetWidth + "px";
+        }).observe(differenceElement);
+
+        // Press effect
+        heatmapToggle.addEventListener("mousedown", () => {
+            heatmapToggle.style.background = "rgba(64, 64, 64, 0.85)";
+            heatmapToggle.style.boxShadow = "0 1px 3px rgba(0,0,0,0.13)";
+        });
+        heatmapToggle.addEventListener("mouseup", () => {
+            heatmapToggle.style.background = "rgba(64, 64, 64, 0.65)";
+            heatmapToggle.style.boxShadow = "0 2px 8px rgba(0,0,0,0.10)";
+        });
+        heatmapToggle.addEventListener("mouseleave", () => {
+            heatmapToggle.style.background = "rgba(64, 64, 64, 0.65)";
+            heatmapToggle.style.boxShadow = "0 2px 8px rgba(0,0,0,0.10)";
+        });
+
+        heatmapToggle.addEventListener("click", function () {
+            window.heatmapEnabled = !window.heatmapEnabled;
+            if (!window.heatmapEnabled) {
+                resetHeatmapColors();
+            } else {
+                const allPlayers = document.querySelector(".player-section");
+                if (allPlayers) colorPlayers(allPlayers);
+            }
+            heatmapToggle.textContent = window.heatmapEnabled ? "Turn Heatmap Off" : "Turn Heatmap On";
+        });
+    }
+    // Set initial state
+    if (typeof window.heatmapEnabled === "undefined") {
+        window.heatmapEnabled = true;
+        heatmapToggle.textContent = "Turn Heatmap Off";
+    }
+}
+
+// Helper to reset all player coloring and differences
+function resetHeatmapColors() {
+    // Reset all player item backgrounds (removes heatmap)
+    document.querySelectorAll('.matchup-player-item').forEach(item => {
+        item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+        item.style.boxShadow = '';
+        item.style.border = '';
+        item.style.borderRadius = '10px';
+    });
+    resetScoreDifference();
+}
+
+return { colorPlayers, addHeatmapToggleButton, resetHeatmapColors };
+})();
+
+// classic/score-difference.js
+const __mod7 = (() => {
+const { addHeatmapToggleButton } = __mod6;
+////////////////////////////////////////////////////////////////////////////
+// Create score differential element, add conditional colors to team scores
+////////////////////////////////////////////////////////////////////////////
+
+function displayScoreDifference(users, scores) {
+    console.log('displayScoreDifference function is running test');
+
+    let retryCount = 0;
+    const maxRetries = 1;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Check scores
+    ////////////////////////////////////////////////////////////////////////////
+    function checkScores() {
+        // Users and scores captured:
+        if (users.length === 2 && scores.length === 2) {
+
+            ////////////////////////////////////////////////////////////////////////////
+            // Capture my score and opponents
+            ////////////////////////////////////////////////////////////////////////////
+            // Check if either score contains '-'
+            const isScore1Dash = scores[0].textContent.trim() === "-";
+            const isScore2Dash = scores[1].textContent.trim() === "-";
+
+            // Declare my score and opponent's score 
+            let myScore = isScore1Dash ? 0 : parseFloat(scores[0].textContent);
+            let opponentScore = isScore2Dash ? 0 : parseFloat(scores[1].textContent);
+
+            // Difference:
+            const difference = myScore - opponentScore;
+
+            ////////////////////////////////////////////////////////////////////////////
+            // Create element display text
+            ////////////////////////////////////////////////////////////////////////////
+            // Add difference element:
+            let displayText = "";
+            // Losing (negative difference):
+            if (difference < 0) {
+                displayText = `Losing by ${difference.toFixed(2)}`;
+            // Winning (positive difference):
+            } else if (difference > 0) {
+                displayText = ` Winning by ${difference.toFixed(2)}`;
+            // Tied:
+            } else {
+                displayText = 'Tied';
+            }
+            ////////////////////////////////////////////////////////////////////////////
+            // Create or update element scoreDifferenceDisplay
+            ////////////////////////////////////////////////////////////////////////////
+            let differenceElement = document.querySelector("#scoreDifferenceDisplay");
+
+            if (!differenceElement) {
+                differenceElement = document.createElement("div");
+                differenceElement.id = "scoreDifferenceDisplay";
+                document.body.appendChild(differenceElement);
+            }
+            ////////////////////////////////////////////////////////////////////////////
+            // Update display element traits:
+            ////////////////////////////////////////////////////////////////////////////
+            differenceElement.textContent = displayText;
+            differenceElement.style.padding = '10px';
+            differenceElement.style.textAlign = 'center';
+            differenceElement.style.backgroundColor = difference < 0 ? 'rgba(255, 0, 0, 0.15)' : (difference === 0 ? 'rgba(64, 64, 64, 0.15)' : 'rgba(0, 128, 0, 0.15)');
+            differenceElement.style.fontSize = '16px';
+            differenceElement.style.marginTop = '0px';
+            differenceElement.style.marginBottom = '10px';
+            differenceElement.style.borderRadius = '8px';   
+            //differenceElement.style.outline = difference < 0 ? '2px solid rgba(0, 0, 0, 0.4)' : (difference === 0 ? '2px solid rgba(0, 0, 0, 0.4)' : '2px solid rgba(0, 0, 0, 0.4)');
+            differenceElement.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+
+            ////////////////////////////////////////////////////////////////////////////
+            // Insert element:
+            ////////////////////////////////////////////////////////////////////////////
+            const matchupHeader = document.querySelector('.matchup-row');
+            if (matchupHeader && matchupHeader.parentNode) {
+                matchupHeader.parentNode.insertBefore(differenceElement, matchupHeader.nextSibling);
+               // addHeatmapToggleButton(differenceElement);
+            }
+
+            ////////////////////////////////////////////////////////////////////////////
+            // Conditional color of score difference element:
+            ////////////////////////////////////////////////////////////////////////////
+            const ownerItems = document.querySelectorAll('.matchup-owner-item');
+            if (ownerItems.length === 2) {
+                const ownerItem1 = ownerItems[0];
+                const ownerItem2 = ownerItems[1];
+                
+                ownerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+                ownerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+
+
+                if (difference < 0) {
+                    ownerItem1.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
+                    ownerItem2.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
+                    // ownerItem1.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+                    // ownerItem2.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+                } else if (difference > 0) {
+                    ownerItem1.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
+                    ownerItem2.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
+                } else {  // tie
+                    ownerItem1.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
+                    ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
+                    // ownerItem1.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+                    // ownerItem2.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)';                                 
+                }
+            }
+        // Potential refactor/remove:
+        } else if (retryCount >= maxRetries) {
+            console.log('Max retries reached, giving up...');
+        } else {
+            console.log('Could not find the scores, retrying...');
+            retryCount++;
+            setTimeout(checkScores, 1000); // Retry after a short delay
+        }
+    }
+
+    checkScores();
+}
+
+return { displayScoreDifference };
+})();
+
+// classic/resize-scores.js
+const __mod8 = (() => {
+////////////////////////////////////////////////////////////////////////////
+// Resize the scores of both teams 
+////////////////////////////////////////////////////////////////////////////
+
+function resizeScoreElement() {
+    // Select all score elements within the class `.roster-score-and-projection-matchup`
+    const scoreElements = document.querySelectorAll(".roster-score-and-projection-matchup .score");
+    
+    // Loop through all the matching elements (2) and apply the styles
+    scoreElements.forEach(scoreElement => {
+        scoreElement.style.fontSize = "18px";     
+        scoreElement.style.fontWeight = "normal";  
+    });
+}
+
+return { resizeScoreElement };
+})();
+
+// src/content-script.js
+const __mod0 = (() => {
+// New (/beta) Sleeper UI
+const { colorPlayers } = __mod1;
+const { displayScoreDifference } = __mod3;
+const { displayLeagueMedian } = __mod5;
+const { isMatchupPage, getStarterPairs, getMatchupHeader } = __mod2;
+// Classic Sleeper UI ("Back to Classic Fantasy") - original code, unchanged
+const { colorPlayers: classicColorPlayers } = __mod6;
+const { displayScoreDifference: classicDisplayScoreDifference } = __mod7;
+const { resizeScoreElement: classicResizeScoreElement } = __mod8;
+////////////////////////////////////////////////////////////////////////////
+// Mutation Observer:
+// Sleeper is a React app that re-renders often (live scores, chat), so
+// batch mutations and run main() at most once per animation frame.
+////////////////////////////////////////////////////////////////////////////
+let scheduled = false;
+
+function scheduleMain() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+        scheduled = false;
+        observer.disconnect();
+        try {
+            main();
+        } catch (err) {
+            console.error('[Sleeper extension]', err);
+        }
+        observeDOM();
+    });
+}
+
+const observer = new MutationObserver(scheduleMain);
+
+function observeDOM() {
+    observer.observe(document.body, {
+        childList: true,
+        characterData: true,
+        subtree: true
+    });
+}
+
+if (document.readyState === 'complete') {
+    observeDOM();
+    scheduleMain();
+} else {
+    window.addEventListener("load", () => {
+        observeDOM();
+        scheduleMain();
+    });
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Main functionality:
+////////////////////////////////////////////////////////////////////////////
+let lastSignature = null;
+let oldClassicPlayers = null;
+
+function main() {
+    // Sleeper serves either UI depending on the account's choice, so detect it
+    const classicPlayers = document.querySelector(".player-section");
+    if (classicPlayers) {
+        classicMain(classicPlayers);
+    } else {
+        newUiMain();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Classic UI: same behavior as before the redesign
+////////////////////////////////////////////////////////////////////////////
+function classicMain(allPlayers) {
+    if (oldClassicPlayers === allPlayers.innerHTML) {
+        ensureLeagueMedian();
+        return;
+    }
+    const users = document.querySelectorAll(".matchup-row .user");
+    const scores = document.querySelectorAll(".matchup-row .user .score");
+
+    classicColorPlayers(allPlayers);
+    classicDisplayScoreDifference(users, scores);
+    classicResizeScoreElement();
+    displayLeagueMedian();
+
+    oldClassicPlayers = allPlayers.innerHTML;
+}
+
+// Re-attach the median box if the page re-rendered and dropped it
+function ensureLeagueMedian() {
+    const anchor = document.querySelector('#scoreDifferenceDisplay');
+    const box = document.querySelector('#leagueMedianDisplay');
+    if (anchor && (!box || anchor.nextElementSibling !== box)) displayLeagueMedian(anchor);
+}
+
+////////////////////////////////////////////////////////////////////////////
+// New UI
+////////////////////////////////////////////////////////////////////////////
+function newUiMain() {
+    if (!isMatchupPage()) return;
+
+    const header = getMatchupHeader();
+    const pairs = getStarterPairs();
+    if (!header || pairs.length === 0) return;
+
+    // Only recompute when a score or the lineup actually changed
+    const signature = [
+        location.pathname + location.search,
+        header.myScoreEl.textContent,
+        header.oppScoreEl.textContent,
+        ...pairs.map(([l, r]) => `${l.scoreEl.textContent}|${r.scoreEl.textContent}`)
+    ].join('~');
+
+    const missingElements = !document.querySelector('#scoreDifferenceDisplay') ||
+        !document.querySelector('#leagueMedianDisplay') ||
+        !document.querySelector('.score-difference-added');
+
+    if (signature === lastSignature && !missingElements) return;
+    lastSignature = signature;
+
+    colorPlayers(pairs);
+    const differenceElement = displayScoreDifference(header);
+    displayLeagueMedian(differenceElement);
+}
+
+return {  };
+})();
+})();
